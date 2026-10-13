@@ -24,7 +24,7 @@ export async function loadSnapshot(): Promise<SnapshotData> {
     /* live server not available — fall through to snapshot */
   }
 
-  // Fallback: load the bundled snapshot.json (view-only build / GitHub Pages).
+  // Fallback: load the bundled snapshot.json (view-only hosted build).
   const res = await fetch(import.meta.env.BASE_URL + 'snapshot.json');
   if (!res.ok) {
     throw new Error(`Failed to load the archive (${res.status})`);

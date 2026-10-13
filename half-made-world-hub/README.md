@@ -1,10 +1,6 @@
----
-title: Half-Made World — Worldbuilding Archive
-description: Interactive worldbuilding archive
-theme: jekyll-theme-minimal
----
+# Half-Made World — Hosted Archive
 
-_This is the view-only archive hosted on GitHub Pages. It is generated automatically from `server/data/*.json` on every push, so it always reflects the latest committed world data._
+_This is the view-only archive hosted on Netlify. It is generated automatically from `server/data/*.json` on every push, so it always reflects the latest committed world data._
 
 ## What you can do here
 
@@ -25,7 +21,7 @@ The deployed app loads a snapshot bundled at build time from these files:
 - `server/data/relationships.json` — character relationships
 - `server/data/story-links.json` — story links
 
-The build runs a prebuild step (`scripts/build-snapshot.mjs`) that combines those three files into `client/public/snapshot.json`, which the built app fetches as `/snapshot.json`. On pushes to `main`, GitHub Actions rebuilds the client from source and deploys the result to GitHub Pages, so the online archive always reflects the latest committed data in `server/data/`.
+The build runs a prebuild step (`scripts/build-snapshot.mjs`) that combines those three files into `client/public/snapshot.json`, which the built app fetches as `/snapshot.json`. On pushes to `main`, Netlify rebuilds the client from source and deploys the result, so the online archive always reflects the latest committed data in `server/data/`.
 
 ## Editing the world locally
 
@@ -55,7 +51,7 @@ This writes `client/public/snapshot.json` from the current `server/data/*.json`.
 npm run build
 ```
 
-This runs the snapshot prebuild step first, then builds the Vite production bundle into `client/dist/`. The `client/dist/` folder is what gets deployed to GitHub Pages. It is also git-ignored.
+This runs the snapshot prebuild step first, then builds the Vite production bundle into `client/dist/`. The `client/dist/` folder is what Netlify publishes (see `netlify.toml` at the repo root). It is also git-ignored.
 
 ## AI integration
 

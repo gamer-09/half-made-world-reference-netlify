@@ -1,0 +1,6 @@
+# Netlify deployment (replaces the former GitHub Pages workflow).
+# The client lives in half-made-world-hub/client and is built with Vite into dist.
+[build]
+  base = "half-made-world-hub/client"
+  command = "npm ci && npm run build"
+  publish = "dist"

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: 'https://gamer-09.github.io/Half-made-world-Reference/',
+  base: '/',
   server: {
     port: 5173,
     host: true,
