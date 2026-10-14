@@ -11,17 +11,21 @@ let cached: SnapshotData | null = null;
 export async function loadSnapshot(): Promise<SnapshotData> {
   if (cached) return cached;
 
-  // Try the live server first (dev mode with the Node API running).
-  try {
-    const entries = await fetch('/api/entries').then((r) => r.json());
-    const relationships = await fetch('/api/relationships').then((r) => r.json());
-    const storyLinks = await fetch('/api/story-links').then((r) => r.json());
-    if (entries?.length && relationships?.length && storyLinks?.length) {
-      cached = { entries, relationships, storyLinks };
-      return cached;
+  // Try the live server first, but only in dev (same gate as the edit controls in
+  // App.tsx): a hosted build has no /api, so probing it there would only fire three
+  // 404s in the console before falling through to the snapshot below.
+  if (import.meta.env.DEV) {
+    try {
+      const entries = await fetch('/api/entries').then((r) => r.json());
+      const relationships = await fetch('/api/relationships').then((r) => r.json());
+      const storyLinks = await fetch('/api/story-links').then((r) => r.json());
+      if (entries?.length && relationships?.length && storyLinks?.length) {
+        cached = { entries, relationships, storyLinks };
+        return cached;
+      }
+    } catch {
+      /* live server not available — fall through to snapshot */
     }
-  } catch {
-    /* live server not available — fall through to snapshot */
   }
 
   // Fallback: load the bundled snapshot.json (view-only hosted build).
